@@ -1,3 +1,3 @@
 # dr_appoint_app
 
-A new Flutter project.
+A Simple CWRD Application that works on Flutter abd Firebase Stack.
