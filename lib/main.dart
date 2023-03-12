@@ -1,4 +1,7 @@
+import 'package:dr_appoint_app/appointments.dart';
 import 'package:dr_appoint_app/dashboard.dart';
+import 'package:dr_appoint_app/modal.dart';
+import 'package:dr_appoint_app/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 
@@ -22,14 +25,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Dr.Appoint',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        routes: {
-          '/': (context) => const MyHomePage(),
-        });
+      debugShowCheckedModeBanner: false,
+      title: 'Dr.Appoint',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routes: {
+        '/': (context) => const MyHomePage(),
+        '/appointment': (context) => const Appointments(),
+      },
+    );
   }
 }
 

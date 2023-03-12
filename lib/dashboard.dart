@@ -1,6 +1,5 @@
 import 'package:dr_appoint_app/problem_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text_box/flutter_text_box.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -10,9 +9,15 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final key = GlobalKey<FormState>();
   var _cityName = "";
 
+  static const List<String> _kOptions = <String>[
+    'mumbai',
+    'chennai',
+    'kolkata',
+    'delhi',
+    'bangalore',
+  ];
   @override
   Widget build(BuildContext context) {
     return (_cityName == "")
@@ -20,36 +25,53 @@ class _DashboardState extends State<Dashboard> {
             body: Padding(
               padding: const EdgeInsets.all(40),
               child: Center(
-                child: Form(
-                  key: key,
-                  child: TextBoxIcon(
-                    icon: Icons.location_city,
-                    inputType: TextInputType.text,
-                    label: 'City',
-                    hint: 'Please enter your city here',
-                    errorText: 'This field is required !',
-                    onSaved: (String value) {
-                      //TODO: ADD Logic for city selection
-                      setState(() {
-                        _cityName = value;
-                      });
-                    },
-                  ),
+                child: Autocomplete<String>(
+                  fieldViewBuilder: (BuildContext context,
+                      TextEditingController textEditingController,
+                      FocusNode focusNode,
+                      VoidCallback onFieldSubmitted) {
+                    return TextFormField(
+                      controller: textEditingController,
+                      decoration: myTextFieldDecoration(
+                          topLabel: "Enter city name",
+                          hintText: "Type or select from list"),
+                      focusNode: focusNode,
+                      onFieldSubmitted: (String value) {
+                        onFieldSubmitted();
+                        print('You just typed a new entry  $value');
+                      },
+                    );
+                  },
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    return _kOptions.where((String option) {
+                      return option
+                          .contains(textEditingValue.text.toLowerCase());
+                    });
+                  },
+                  onSelected: (String selection) {
+                    setState(() {
+                      _cityName = selection;
+                    });
+                  },
                 ),
               ),
             ),
-            floatingActionButton: (_cityName != "")
-                ? null
-                : FloatingActionButton(
-                    child: const Icon(Icons.check),
-                    onPressed: () {
-                      final state = key.currentState;
-                      if (state!.validate()) {
-                        state.save();
-                      }
-                    },
-                  ),
           )
         : ProblemForm(city: _cityName);
   }
+}
+
+InputDecoration myTextFieldDecoration(
+    {String topLabel = "",
+    String hintText = "",
+    double cornerRadius = 5.0,
+    Icon? icon}) {
+  return InputDecoration(
+    labelText: topLabel,
+    hintText: hintText,
+    icon: icon,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(cornerRadius)),
+    ),
+  );
 }

@@ -1,3 +1,4 @@
+import 'package:dr_appoint_app/modal.dart';
 import 'package:flutter/material.dart';
 
 class Appointments extends StatefulWidget {
@@ -8,11 +9,40 @@ class Appointments extends StatefulWidget {
 }
 
 class _AppointmentsState extends State<Appointments> {
+  List<Appointment> appointments = [
+    Appointment("Dr. Manoj Pandey", DateTime.now()),
+    Appointment("Dr. Manoj Pandey", DateTime.now()),
+    Appointment("Dr. Manoj Pandey", DateTime.now()),
+    Appointment("Dr. Manoj Pandey", DateTime.now()),
+    Appointment("Dr. Manoj Pandey", DateTime.now()),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
-      body: null,
+      appBar: AppBar(
+        title: const Text("Appointments"),
+      ),
+      body: ListView.builder(
+        itemBuilder: _itemBuilder,
+        itemCount: appointments.length,
+      ),
+    );
+  }
+
+  Widget? _itemBuilder(BuildContext context, int i) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Card(
+        elevation: 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(
+                "${appointments[i].drName}\n AT:${appointments[i].appointmentTime}\n"),
+          ],
+        ),
+      ),
     );
   }
 }
