@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:checkout_screen_ui/checkout_page.dart';
 import 'package:cool_alert/cool_alert.dart';
-import 'package:dr_appoint_app/appointments.dart';
 import 'package:dr_appoint_app/modal.dart';
 import 'package:flutter/material.dart';
 

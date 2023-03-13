@@ -30,7 +30,7 @@ class _ProblemFormState extends State<ProblemForm> {
     Doctor("Dr. Manoj Sharma", "Orthopedic"),
     Doctor("Dr. Manoj Sharma", "Orthopedic"),
     Doctor("Dr. Manoj Sharma", "Orthopedic"),
-  ];
+  ]; //TODO: Change with list from server
   @override
   Widget build(BuildContext context) {
     final cityName = widget.city;
@@ -62,7 +62,8 @@ class _ProblemFormState extends State<ProblemForm> {
               return option.contains(textEditingValue.text.toLowerCase());
             });
           },
-          onSelected: (String selection) => bookDoctor(context),
+          onSelected: (String selection) =>
+              bookDoctor(context, doctor: doctors[0], selected: false),
         ),
       ),
       const Divider(
@@ -123,7 +124,7 @@ class _ProblemFormState extends State<ProblemForm> {
 
   doctorCard(Doctor doc) {
     return GestureDetector(
-      onTap: () => bookDoctor(context, doctor: doc),
+      onTap: () => bookDoctor(context, doctor: doc, selected: true),
       child: Card(
         elevation: 5,
         margin: const EdgeInsets.all(8),
@@ -135,11 +136,15 @@ class _ProblemFormState extends State<ProblemForm> {
     );
   }
 
-  bookDoctor(BuildContext context, {Doctor? doctor}) {
+  bookDoctor(BuildContext context,
+      {required Doctor doctor, required bool selected}) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: ((context) => Booking(doctor: doctor)),
+        builder: ((context) => Booking(
+              doctor: doctor,
+              selected: selected,
+            )),
       ),
     );
   }
