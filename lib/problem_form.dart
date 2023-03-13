@@ -26,10 +26,10 @@ class _ProblemFormState extends State<ProblemForm> {
     'diarrhea',
   ];
   List<Doctor> doctors = [
-    Doctor("Dr. Manoj Sharma", "Orthopedic"),
-    Doctor("Dr. Manoj Sharma", "Orthopedic"),
-    Doctor("Dr. Manoj Sharma", "Orthopedic"),
-    Doctor("Dr. Manoj Sharma", "Orthopedic"),
+    Doctor("Dr. Manoj Sharma", "General physician"),
+    Doctor("Dr. Ranjana Srivastava", "Gynecologist"),
+    Doctor("Dr. Akhil Verma", "Orthopedic"),
+    Doctor("Dr. Kamala Rathi", "Orthopedic"),
   ]; //TODO: Change with list from server
   @override
   Widget build(BuildContext context) {
