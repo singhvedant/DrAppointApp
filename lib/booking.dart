@@ -5,6 +5,7 @@ import 'package:dr_appoint_app/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_loading_button/loading_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Booking extends StatefulWidget {
@@ -47,6 +48,7 @@ class _BookingState extends State<Booking> {
   }
 
   var datetime = 'Schedule time for appointment';
+  var appointment;
   @override
   Widget build(BuildContext context) {
     final doc = widget.doctor;
@@ -55,9 +57,7 @@ class _BookingState extends State<Booking> {
         title: const Text('Confirmation'),
       ),
       body: (sec == 7)
-          ? Payment(
-              doctor: Doctor(doc.drName, "MS"),
-            )
+          ? Payment(appointment: appointment)
           : (sec == 6)
               ? Center(
                   //TODO: Make this widget
@@ -86,7 +86,10 @@ class _BookingState extends State<Booking> {
                                     showTitleActions: true,
                                     pickerModel: CustomPicker(),
                                     onChanged: (date) {
-                                  print('change $date');
+                                  setState(() {
+                                    datetime =
+                                        "${givemonth(date.month)} ${date.day}, ${date.hour > 12 ? date.hour - 12 : date.hour} ${date.hour > 12 ? "PM" : "AM"}";
+                                  });
                                 }, onConfirm: (date) {
                                   setState(() {
                                     datetime =
@@ -102,12 +105,24 @@ class _BookingState extends State<Booking> {
                           LoadingButton(
                             // This needs to be async
                             onPressed: () async {
-                              await Future.delayed(
-                                const Duration(seconds: 3),
-                                () => setState(() {
-                                  sec += 1;
-                                }),
-                              );
+                              if (datetime != 'Schedule time for appointment') {
+                                appointment = Appointment(doc, datetime);
+                                await Future.delayed(
+                                  const Duration(seconds: 3),
+                                  () => setState(() {
+                                    sec += 1;
+                                  }),
+                                );
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "Please select appointment time",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
                             },
                             loadingWidget: const CircularProgressIndicator(),
                             child: const Text('Check'),
@@ -143,7 +158,7 @@ class CustomPicker extends CommonPickerModel {
     this.currentTime = currentTime ?? DateTime.now();
     setLeftIndex(this.currentTime.month);
     setMiddleIndex(this.currentTime.day);
-    setRightIndex(this.currentTime.hour);
+    setRightIndex(9);
   }
 
   @override

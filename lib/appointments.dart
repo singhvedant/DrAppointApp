@@ -10,11 +10,16 @@ class Appointments extends StatefulWidget {
 
 class _AppointmentsState extends State<Appointments> {
   List<Appointment> appointments = [
-    Appointment("Dr. Manoj Pandey", DateTime.now()),
-    Appointment("Dr. Manoj Pandey", DateTime.now()),
-    Appointment("Dr. Manoj Pandey", DateTime.now()),
-    Appointment("Dr. Manoj Pandey", DateTime.now()),
-    Appointment("Dr. Manoj Pandey", DateTime.now()),
+    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
+        DateTime.now().toString()),
+    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
+        DateTime.now().toString()),
+    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
+        DateTime.now().toString()),
+    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
+        DateTime.now().toString()),
+    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
+        DateTime.now().toString()),
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,7 @@ class _AppointmentsState extends State<Appointments> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(
-                "${appointments[i].drName}\n AT:${appointments[i].appointmentTime}\n"),
+                "${appointments[i].doctor.drName}\n AT:${appointments[i].appointmentTime}\n"),
           ],
         ),
       ),

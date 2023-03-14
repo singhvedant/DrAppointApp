@@ -1,8 +1,8 @@
 class Appointment {
-  final String drName;
-  final DateTime appointmentTime;
+  final Doctor doctor;
+  final String appointmentTime;
 
-  Appointment(this.drName, this.appointmentTime);
+  Appointment(this.doctor, this.appointmentTime);
 }
 
 class Doctor {

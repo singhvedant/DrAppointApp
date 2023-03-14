@@ -17,6 +17,7 @@ dependencies:
   flutter_loading_button: ^0.0.2
   flutter_login: ^4.1.1
   flutter_text_box: ^0.0.1
+  fluttertoast: ^8.2.1
   loading_animation_widget: ^1.2.0+4
   shaky_animated_listview: ^0.0.5
 

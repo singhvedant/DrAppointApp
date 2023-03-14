@@ -63,11 +63,12 @@ class _DashboardState extends State<Dashboard> {
                     LoadingButton(
                       // This needs to be async
                       onPressed: () async {
-                        Future.delayed(const Duration(seconds: 3))
-                            .then((value) => setState(() {
-                                  _cityName = _kOptions[0];
-                                }));
-                        //TODO:
+                        await Future.delayed(
+                          const Duration(seconds: 3), //TODO:
+                          () => setState(() {
+                            _cityName = _kOptions[0];
+                          }),
+                        );
                       },
                       loadingWidget: const CircularProgressIndicator(),
                       child: const Text('        OR\nUse Location'),
