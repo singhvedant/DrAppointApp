@@ -9,18 +9,18 @@ class Appointments extends StatefulWidget {
 }
 
 class _AppointmentsState extends State<Appointments> {
-  List<Appointment> appointments = [
-    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
-        DateTime.now().toString()),
-    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
-        DateTime.now().toString()),
-    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
-        DateTime.now().toString()),
-    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
-        DateTime.now().toString()),
-    Appointment(Doctor("Dr. Manoj Pandey", "General Physician"),
-        DateTime.now().toString()),
-  ];
+  List<Appointment> appointments = [];
+
+  @override
+  void initState() {
+    Database().getUserAppointments().then((value) => {
+          setState(
+            () => appointments = value,
+          )
+        });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +39,17 @@ class _AppointmentsState extends State<Appointments> {
       padding: const EdgeInsets.all(16.0),
       child: Card(
         elevation: 2,
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 20),
             Text(
-                "${appointments[i].doctor.drName}\n AT:${appointments[i].appointmentTime}\n"),
+              "${appointments[i].doctor.drName}\n${appointments[i].appointmentTime}\n",
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
           ],
         ),
       ),

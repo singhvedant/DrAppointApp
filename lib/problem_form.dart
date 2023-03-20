@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:dr_appoint_app/appointments.dart';
 import 'package:dr_appoint_app/booking.dart';
 import 'package:dr_appoint_app/dashboard.dart';
 import 'package:dr_appoint_app/modal.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text_box/flutter_text_box.dart';
 
@@ -13,6 +17,7 @@ class ProblemForm extends StatefulWidget {
 }
 
 class _ProblemFormState extends State<ProblemForm> {
+  List<Doctor> doctors = [];
   static const List<String> _kOptions = <String>[
     'fever',
     'sickness',
@@ -25,15 +30,22 @@ class _ProblemFormState extends State<ProblemForm> {
     'covid-19',
     'diarrhea',
   ];
-  List<Doctor> doctors = [
-    Doctor("Dr. Manoj Sharma", "General physician"),
-    Doctor("Dr. Ranjana Srivastava", "Gynecologist"),
-    Doctor("Dr. Akhil Verma", "Orthopedic"),
-    Doctor("Dr. Kamala Rathi", "Orthopedic"),
-  ]; //TODO: Change with list from server
+
+  @override
+  void initState() {
+    final cityName = widget.city;
+    Database().getDoctorsInCity(cityName).then((value) => {
+          setState(
+            () => doctors = value,
+          )
+        });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final cityName = widget.city;
+
     final constTop = [
       const SizedBox(height: 32),
       Padding(
@@ -87,10 +99,14 @@ class _ProblemFormState extends State<ProblemForm> {
       ),
       const SizedBox(height: 16),
     ];
-
-    for (var docs in doctors) {
-      constTop.add(doctorCard(docs));
+    if (doctors.isEmpty) {
+      constTop.add(const Text('No Doctors Available in your city.'));
+    } else {
+      for (var docs in doctors) {
+        constTop.add(doctorCard(docs));
+      }
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -107,10 +123,9 @@ class _ProblemFormState extends State<ProblemForm> {
                       builder: (context) => const Appointments())),
             ),
             GestureDetector(
-                child: const Icon(Icons.logout),
-                onTap: () => print(
-                    "SignOutPressed") //TODO: await FirebaseAuth.instance.signOut(),
-                ),
+              child: const Icon(Icons.logout),
+              onTap: () async => await FirebaseAuth.instance.signOut(),
+            ),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:checkout_screen_ui/checkout_page.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:dr_appoint_app/confirm.dart';
 import 'package:dr_appoint_app/modal.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatefulWidget {
@@ -15,6 +16,8 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
+  var user = FirebaseAuth.instance.currentUser!.displayName ?? "";
+
   final GlobalKey<CardPayButtonState> _payBtnKey =
       GlobalKey<CardPayButtonState>();
   var _done;
@@ -33,7 +36,7 @@ class _PaymentState extends State<Payment> {
         ? Confirm(_done)
         : CheckoutPage(
             priceItems: priceItems,
-            payToName: "Username", //TODO: Replace with Firebase.username
+            payToName: user,
             displayNativePay: true,
             onNativePay: () => _nativePayClicked(context),
             displayCashPay: true,
@@ -57,16 +60,29 @@ class _PaymentState extends State<Payment> {
     confirmBooking();
   }
 
-  confirmBooking() {
-    CoolAlert.show(
-      context: context,
-      type: CoolAlertType.success,
-      text: "Your transaction was successful!",
-      onConfirmBtnTap: () {
-        setState(() {
-          _done = widget.appointment;
-        });
-      },
-    );
+  confirmBooking() async {
+    var appointment = widget.appointment;
+    await Database().setDoctorAppointment(appointment).then((value) {
+      Database().setUserAppointment(appointment);
+      if (value) {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.success,
+          text: "Your transaction was successful!",
+          onConfirmBtnTap: () {
+            setState(() {
+              _done = widget.appointment;
+            });
+          },
+        );
+      } else {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "Unable to book your appointment!",
+          onConfirmBtnTap: () {},
+        );
+      }
+    }).timeout(const Duration(seconds: 10));
   }
 }

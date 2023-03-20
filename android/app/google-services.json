@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "437547317202",
+    "firebase_url": "https://dr-appoint-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "dr-appoint",
+    "storage_bucket": "dr-appoint.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437547317202:android:427b7822a3e0a478093a0b",
+        "android_client_info": {
+          "package_name": "com.example.dr_appoint_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437547317202-mtgs85tf5eom9aelmccfvduro2f0pbq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnX7a_17bksUsALap52ZwCZk00YGmJTZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437547317202-mtgs85tf5eom9aelmccfvduro2f0pbq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

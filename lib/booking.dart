@@ -107,12 +107,25 @@ class _BookingState extends State<Booking> {
                             onPressed: () async {
                               if (datetime != 'Schedule time for appointment') {
                                 appointment = Appointment(doc, datetime);
-                                await Future.delayed(
-                                  const Duration(seconds: 3),
-                                  () => setState(() {
-                                    sec += 1;
-                                  }),
-                                );
+                                await Database()
+                                    .checkDrBusy(appointment)
+                                    .then((value) {
+                                  if (value == true) {
+                                    setState(() {
+                                      sec += 1;
+                                    });
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "Please schedule another time\nThe Doctor is busy at this hour.",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  }
+                                });
                               } else {
                                 Fluttertoast.showToast(
                                     msg: "Please select appointment time",
