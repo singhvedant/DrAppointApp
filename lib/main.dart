@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:dr_appoint_app/appointments.dart';
 import 'package:dr_appoint_app/dashboard.dart';
-import 'package:dr_appoint_app/modal.dart';
-import 'package:dr_appoint_app/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 
@@ -17,11 +15,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -49,7 +47,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final firebase = FirebaseAuth.instance;
-  var user;
+  late User? user;
   @override
   void initState() {
     firebase.authStateChanges().listen((User? user) {
@@ -100,8 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String?>? _signupUser(SignupData data) async {
     try {
-      UserCredential userCredential =
-          await firebase.createUserWithEmailAndPassword(
+      await firebase.createUserWithEmailAndPassword(
         email: data.name!,
         password: data.password!,
       );
@@ -120,5 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return null;
   }
 
-  Future<String?>? _recoverPassword(String data) {}
+  Future<String?>? _recoverPassword(String data) {
+    return null;
+  }
 }

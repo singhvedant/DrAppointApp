@@ -12,11 +12,11 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   var _cityName = "";
   static const List<String> _kOptions = <String>[
-    'mumbai',
-    'chennai',
-    'kolkata',
-    'delhi',
-    'bangalore',
+    'los Angeles',
+    'miami',
+    'orlando',
+    'madison',
+    'detroit',
   ];
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,6 @@ class _DashboardState extends State<Dashboard> {
                           focusNode: focusNode,
                           onFieldSubmitted: (String value) {
                             onFieldSubmitted();
-                            print('You just typed a new entry  $value');
                           },
                         );
                       },
@@ -64,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
                       // This needs to be async
                       onPressed: () async {
                         await Future.delayed(
-                          const Duration(seconds: 3), //TODO:
+                          const Duration(seconds: 3),
                           () => setState(() {
                             _cityName = _kOptions[0];
                           }),

@@ -1,13 +1,9 @@
-import 'dart:async';
-
 import 'package:dr_appoint_app/appointments.dart';
 import 'package:dr_appoint_app/booking.dart';
 import 'package:dr_appoint_app/dashboard.dart';
 import 'package:dr_appoint_app/modal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text_box/flutter_text_box.dart';
 
 class ProblemForm extends StatefulWidget {
   const ProblemForm({super.key, required this.city});
@@ -62,7 +58,6 @@ class _ProblemFormState extends State<ProblemForm> {
               focusNode: focusNode,
               onFieldSubmitted: (String value) {
                 onFieldSubmitted();
-                print('You just typed a new entry  $value');
               },
             );
           },

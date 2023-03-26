@@ -20,7 +20,7 @@ class _PaymentState extends State<Payment> {
 
   final GlobalKey<CardPayButtonState> _payBtnKey =
       GlobalKey<CardPayButtonState>();
-  var _done;
+  late Appointment? _done;
   @override
   Widget build(BuildContext context) {
     var doctor = widget.appointment.doctor;
@@ -33,7 +33,7 @@ class _PaymentState extends State<Payment> {
       PriceItem(name: 'Service Charge', quantity: 1, totalPriceCents: 8599),
     ];
     return (_done != null)
-        ? Confirm(_done)
+        ? Confirm(_done!)
         : CheckoutPage(
             priceItems: priceItems,
             payToName: user,

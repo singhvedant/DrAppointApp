@@ -29,7 +29,6 @@ class _BookingState extends State<Booking> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     var selected = widget.selected;
     if (!selected) {
@@ -48,7 +47,7 @@ class _BookingState extends State<Booking> {
   }
 
   var datetime = 'Schedule time for appointment';
-  var appointment;
+  late Appointment appointment;
   @override
   Widget build(BuildContext context) {
     final doc = widget.doctor;

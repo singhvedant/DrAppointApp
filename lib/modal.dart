@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -39,8 +37,6 @@ class Database {
         'timeSlot': appointment.appointmentTime,
       });
     } catch (e) {
-      print(e.toString());
-      print(appointment.appointmentID);
       return false;
     }
     return setDoctorBusyTime(appointment);
@@ -54,8 +50,6 @@ class Database {
             appointment.appointmentTime,
       });
     } catch (e) {
-      print(e.toString());
-      print(appointment.appointmentID);
       return false;
     }
     return true;
@@ -70,8 +64,6 @@ class Database {
         'timeSlot': appointment.appointmentTime,
       });
     } catch (e) {
-      print(e.toString());
-      print(appointment.appointmentID);
       return false;
     }
     return true;

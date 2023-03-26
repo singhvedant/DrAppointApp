@@ -20,12 +20,12 @@ class _ConfirmState extends State<Confirm> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 "Your Appointment is booked.",
                 style: TextStyle(fontSize: 20),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(appointment.doctor.drName),
               Text(appointment.doctor.spec),
               Text(appointment.appointmentTime),
@@ -37,12 +37,12 @@ class _ConfirmState extends State<Confirm> {
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, "/appointment");
                       },
-                      child: Text("View Appointmnets")),
+                      child: const Text("View Appointments")),
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Search for more doctors")),
+                      child: const Text("Search for more doctors")),
                 ],
               ),
             ],
