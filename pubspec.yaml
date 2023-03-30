@@ -22,6 +22,7 @@ dependencies:
   http: ^0.13.5
   loading_animation_widget: ^1.2.0+4
   shaky_animated_listview: ^0.0.5
+  step_progress_indicator: ^1.0.2
 
 dev_dependencies:
   flutter_test:

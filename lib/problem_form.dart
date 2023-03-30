@@ -44,6 +44,10 @@ class _ProblemFormState extends State<ProblemForm> {
 
     final constTop = [
       const SizedBox(height: 32),
+      const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: StepIndicator(title: "Doctor Selections", number: 2),
+      ),
       Padding(
         padding: const EdgeInsets.all(16),
         child: Autocomplete<String>(

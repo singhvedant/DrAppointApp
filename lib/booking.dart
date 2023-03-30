@@ -58,91 +58,94 @@ class _BookingState extends State<Booking> {
       body: (sec == 7)
           ? Payment(appointment: appointment)
           : (sec == 6)
-              ? Center(
-                  //TODO: Make this widget
-                  child: Card(
-                    elevation: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 24),
-                          Text(doc.drName,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          Text(doc.spec,
-                              textAlign: TextAlign.end,
-                              style: const TextStyle(
-                                fontSize: 18,
-                              )),
-                          const SizedBox(height: 24),
-                          TextButton(
-                              onPressed: () {
-                                DatePicker.showPicker(context,
-                                    showTitleActions: true,
-                                    pickerModel: CustomPicker(),
-                                    onChanged: (date) {
-                                  setState(() {
-                                    datetime =
-                                        "${givemonth(date.month)} ${date.day}, ${date.hour > 12 ? date.hour - 12 : date.hour} ${date.hour > 12 ? "PM" : "AM"}";
-                                  });
-                                }, onConfirm: (date) {
-                                  setState(() {
-                                    datetime =
-                                        "${givemonth(date.month)} ${date.day}, ${date.hour > 12 ? date.hour - 12 : date.hour} ${date.hour > 12 ? "PM" : "AM"}";
-                                  });
-                                }, locale: LocaleType.en);
-                              },
-                              child: Text(
-                                datetime,
+              ? Column(
+                  children: [
+                    const SizedBox(height: 40),
+                    const StepIndicator(title: "Schedule Consult", number: 3),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 24),
+                            Text(doc.drName,
                                 style: const TextStyle(
-                                    color: Colors.blue, fontSize: 15),
-                              )),
-                          LoadingButton(
-                            // This needs to be async
-                            onPressed: () async {
-                              if (datetime != 'Schedule time for appointment') {
-                                appointment = Appointment(doc, datetime);
-                                await Database()
-                                    .checkDrBusy(appointment)
-                                    .then((value) {
-                                  if (value == true) {
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            Text(doc.spec,
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                )),
+                            const SizedBox(height: 24),
+                            TextButton(
+                                onPressed: () {
+                                  DatePicker.showPicker(context,
+                                      showTitleActions: true,
+                                      pickerModel: CustomPicker(),
+                                      onChanged: (date) {
                                     setState(() {
-                                      sec += 1;
+                                      datetime =
+                                          "${givemonth(date.month)} ${date.day}, ${date.hour > 12 ? date.hour - 12 : date.hour} ${date.hour > 12 ? "PM" : "AM"}";
                                     });
-                                  } else {
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            "Please schedule another time\nThe Doctor is busy at this hour.",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0);
-                                  }
-                                });
-                              } else {
-                                Fluttertoast.showToast(
-                                    msg: "Please select appointment time",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                              }
-                            },
-                            loadingWidget: const CircularProgressIndicator(),
-                            child: const Text('Check'),
-                          ),
-                        ],
+                                  }, onConfirm: (date) {
+                                    setState(() {
+                                      datetime =
+                                          "${givemonth(date.month)} ${date.day}, ${date.hour > 12 ? date.hour - 12 : date.hour} ${date.hour > 12 ? "PM" : "AM"}";
+                                    });
+                                  }, locale: LocaleType.en);
+                                },
+                                child: Text(
+                                  datetime,
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 15),
+                                )),
+                            LoadingButton(
+                              // This needs to be async
+                              onPressed: () async {
+                                if (datetime !=
+                                    'Schedule time for appointment') {
+                                  appointment = Appointment(doc, datetime);
+                                  await Database()
+                                      .checkDrBusy(appointment)
+                                      .then((value) {
+                                    if (value == true) {
+                                      setState(() {
+                                        sec += 1;
+                                      });
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "Please schedule another time\nThe Doctor is busy at this hour.",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    }
+                                  });
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: "Please select appointment time",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }
+                              },
+                              loadingWidget: const CircularProgressIndicator(),
+                              child: const Text('Check'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 )
               : Center(
                   child: Column(

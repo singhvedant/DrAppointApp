@@ -45,7 +45,7 @@ class _AppointmentsState extends State<Appointments> {
           children: [
             const SizedBox(height: 20),
             Text(
-              "${appointments[i].doctor.drName}\n${appointments[i].appointmentTime}\n",
+              "Doctor:    ${appointments[i].doctor.drName}\n\nTime:    ${appointments[i].appointmentTime}\n",
               style: const TextStyle(
                 fontSize: 20,
               ),

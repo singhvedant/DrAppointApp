@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class Appointment {
   var appointmentID = DateTime.now().toString();
@@ -123,5 +125,31 @@ class Database {
       }
     }
     return true;
+  }
+}
+
+class StepIndicator extends StatefulWidget {
+  const StepIndicator({super.key, required this.title, required this.number});
+  final String title;
+  final int number;
+  @override
+  State<StepIndicator> createState() => _StepIndicatorState();
+}
+
+class _StepIndicatorState extends State<StepIndicator> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text(widget.title),
+        const SizedBox(height: 10),
+        StepProgressIndicator(
+          totalSteps: 3,
+          currentStep: widget.number,
+          selectedColor: Colors.blue,
+          unselectedColor: Colors.grey,
+        ),
+      ],
+    );
   }
 }

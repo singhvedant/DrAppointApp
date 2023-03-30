@@ -1,3 +1,4 @@
+import 'package:dr_appoint_app/modal.dart';
 import 'package:dr_appoint_app/problem_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loading_button/loading_button.dart';
@@ -22,12 +23,18 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return (_cityName == "")
         ? Scaffold(
+            appBar: AppBar(
+              title: const Center(child: Text('City Selection')),
+            ),
             body: Padding(
               padding: const EdgeInsets.all(40),
               child: Center(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
+                    const SizedBox(height: 20),
+                    const StepIndicator(title: "Select Your city", number: 1),
+                    const SizedBox(height: 80),
                     Autocomplete<String>(
                       fieldViewBuilder: (BuildContext context,
                           TextEditingController textEditingController,
