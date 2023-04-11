@@ -35,7 +35,7 @@ class Database {
         '/DoctorAppointments/${appointment.doctor.doctorID} ${appointment.doctor.drName}');
     try {
       await reference.push().update({
-        'clientName': user,
+        'clientName': 'Bala Akhil',
         'timeSlot': appointment.appointmentTime,
       });
     } catch (e) {

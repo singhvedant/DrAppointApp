@@ -65,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return user == null
         ? Scaffold(
             body: FlutterLogin(
-              title: 'Login',
               onLogin: _authUser,
               onSignup: _signupUser,
               onSubmitAnimationCompleted: () {

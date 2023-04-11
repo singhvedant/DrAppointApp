@@ -77,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
                         );
                       },
                       loadingWidget: const CircularProgressIndicator(),
-                      child: const Text('        OR\nUse Location'),
+                      child: const Text('        OR\n\n\n\nUse Location'),
                     ),
                   ],
                 ),

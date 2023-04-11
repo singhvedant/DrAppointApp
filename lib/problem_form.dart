@@ -58,7 +58,8 @@ class _ProblemFormState extends State<ProblemForm> {
             return TextFormField(
               controller: textEditingController,
               decoration: myTextFieldDecoration(
-                  topLabel: "Problem", hintText: "Select your problem"),
+                  topLabel: "Get Recommendation for disease",
+                  hintText: "Select your problem"),
               focusNode: focusNode,
               onFieldSubmitted: (String value) {
                 onFieldSubmitted();
